@@ -1,10 +1,11 @@
-package days
+package day01
 
 import (
 	"fmt"
 	"regexp"
 	"strings"
 
+	"github.com/mozoarella/adventofcode2023/days"
 	"github.com/mozoarella/adventofcode2023/utils"
 )
 
@@ -22,8 +23,8 @@ var (
 	}
 )
 
-func init() {
-	DayMap[1] = &Day{
+func Init() {
+	days.DayMap[1] = &days.Day{
 		PuzzleOne: solvePuzzleOne,
 		PuzzleTwo: solvePuzzleTwo,
 	}

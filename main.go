@@ -5,6 +5,8 @@ import (
 	"fmt"
 
 	"github.com/mozoarella/adventofcode2023/days"
+	"github.com/mozoarella/adventofcode2023/days/day01"
+	"github.com/mozoarella/adventofcode2023/days/day02"
 )
 
 var (
@@ -14,6 +16,8 @@ var (
 
 func init() {
 	flag.Parse()
+	day01.Init()
+	day02.Init()
 }
 
 func main() {

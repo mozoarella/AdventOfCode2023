@@ -1,6 +1,8 @@
 package days
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type Day struct {
 	PuzzleOne func()
