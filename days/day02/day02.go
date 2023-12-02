@@ -94,22 +94,15 @@ func parseRounds(games string) map[int]map[string]int {
 		// split the colour string from the round into seperate 'red 2' 'blue 4' entries
 		colours := strings.Split(round, ",")
 		for _, c := range colours {
-			colour := parseColour(c)
+			trimmedColour := strings.TrimSpace(c)
+			perColour := strings.Split(trimmedColour, " ")
 			//Take the array with [2 red] and turn it into red:2 :)
-			roundColours[colour[1]] = utils.SilentAtoi(colour[0])
+			roundColours[perColour[1]] = utils.SilentAtoi(perColour[0])
 		}
 		rounds[id] = roundColours
 
 	}
 	return rounds
-}
-
-func parseColour(colourAmount string) []string {
-	// for whatever reason every string after the first one ended up with a leading space
-	// so we use TrimSpace to get rid over any stragglers
-	trimmedColour := strings.TrimSpace(colourAmount)
-	perColour := strings.Split(trimmedColour, " ")
-	return perColour
 }
 
 func checkGameLegal(game game) bool {
