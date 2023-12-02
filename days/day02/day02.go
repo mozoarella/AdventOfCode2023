@@ -15,19 +15,12 @@ func Init() {
 	}
 }
 
-type game struct {
-	legal  bool
-	rounds map[int]map[string]int
-}
-
 var (
 	rules map[string]int = map[string]int{
 		"red":   12,
 		"green": 13,
 		"blue":  14,
 	}
-
-	games map[int]game = make(map[int]game)
 )
 
 func solvePuzzleOne() {
@@ -36,16 +29,7 @@ func solvePuzzleOne() {
 	var legalGames []int
 	for k, v := range rawGames {
 		rounds := parseRounds(v)
-		games[k] = game{
-			legal:  true,
-			rounds: rounds,
-		}
-	}
-	//this probably could have been integrated with another step but this is fine.
-	for k, v := range games {
-		if !checkGameLegal(v) {
-			v.legal = false
-		} else {
+		if checkGameLegality(rounds) {
 			legalGames = append(legalGames, k)
 		}
 	}
@@ -57,15 +41,9 @@ func solvePuzzleTwo() {
 	inputText := utils.ReadFileToSlice("days/inputs/day02.txt")
 	rawGames := parseGames(inputText)
 	var gamePowers []int
-	for k, v := range rawGames {
+	for _, v := range rawGames {
 		rounds := parseRounds(v)
-		games[k] = game{
-			legal:  true,
-			rounds: rounds,
-		}
-	}
-	for _, v := range games {
-		gamePowers = append(gamePowers, calculateMinimumCubePower(v))
+		gamePowers = append(gamePowers, calculateMinimumCubePower(rounds))
 	}
 	fmt.Println(utils.AddNumbersInSlice(gamePowers))
 
@@ -105,9 +83,9 @@ func parseRounds(games string) map[int]map[string]int {
 	return rounds
 }
 
-func checkGameLegal(game game) bool {
+func checkGameLegality(rounds map[int]map[string]int) bool {
 	gameLegal := true
-	for _, round := range game.rounds {
+	for _, round := range rounds {
 		roundLegal := true
 		for colour, amount := range round {
 			if amount > rules[colour] {
@@ -125,13 +103,13 @@ func checkGameLegal(game game) bool {
 	}
 }
 
-func calculateMinimumCubePower(game game) int {
+func calculateMinimumCubePower(rounds map[int]map[string]int) int {
 	var minimumColours map[string]int = map[string]int{
 		"red":   0,
 		"green": 0,
 		"blue":  0,
 	}
-	for _, round := range game.rounds {
+	for _, round := range rounds {
 		for colour, amount := range round {
 			if amount > minimumColours[colour] {
 				minimumColours[colour] = amount
