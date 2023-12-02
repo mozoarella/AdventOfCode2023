@@ -20,4 +20,4 @@ With the `-d` flag you can specify a day (without leading 0) and with `-p` you c
 
 
 ## Thoughts file
-After each puzzle I'm putting my thoughts on it in `thoughts.md`
+After each puzzle I'm putting my thoughts on it in [`thoughts.md`](https://github.com/mozoarella/AdventOfCode2023/blob/main/thoughts.md)
